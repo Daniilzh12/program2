@@ -1,0 +1,69 @@
+@startuml
+class com.program.passwordmanager.HelloApplication {
++ void start(Stage)
++ {static} void main(String[])
+}
+class com.program.passwordmanager.Element {
+- IntegerProperty ID
+- StringProperty Login
+- StringProperty Password
+- StringProperty Site
+- StringProperty delete
++ int getId()
++ String getLogin()
++ String getPassword()
++ String getSite()
++ StringProperty LoginProperty()
++ StringProperty PasswordProperty()
++ StringProperty SiteProperty()
++ StringProperty DeleteProperty()
++ IntegerProperty IDProperty()
+}
+class com.program.passwordmanager.DBConnect {
++ {static} String DB_URL
++ {static} String DB_Driver
++ {static} String Table
++ {static} void getDBConnection()
+- {static} void deleteTable()
+- {static} void createTable()
++ {static} void getNotes(ObservableList<Element>)
++ {static} void getFilterNotes(ObservableList<Element>,String,String,String)
++ {static} int addNotes(Element)
++ {static} boolean editNotes(Element)
++ {static} boolean deleteNotes(int)
+}
+class com.program.passwordmanager.ElementsDAOImpl {
+~ ObservableList<Element> elements
++ ObservableList<Element> getAllElements()
++ Element getElement(int)
++ void addElement(String,String,String)
++ void updateElement(Element)
++ void deleteElement(int)
++ void filterElements(String,String,String)
+}
+interface com.program.passwordmanager.ElementsDAO {
++ List<Element> getAllElements()
++ Element getElement(int)
++ void updateElement(Element)
++ void deleteElement(int)
++ void addElement(String,String,String)
+}
+class com.program.passwordmanager.HelloController {
++ TableView<Element> table
++ TextField Login
++ TextField Password
++ TextField Site
++ Button excel
++ Button filter
+~ ElementsDAOImpl elementsDAO
+- void createTable()
++ void initialize(URL,ResourceBundle)
++ void addClick()
++ void Filter()
+}
+
+
+javafx.application.Application <|-- com.program.passwordmanager.HelloApplication
+com.program.passwordmanager.ElementsDAO <|.. com.program.passwordmanager.ElementsDAOImpl
+javafx.fxml.Initializable <|.. com.program.passwordmanager.HelloController
+@enduml
